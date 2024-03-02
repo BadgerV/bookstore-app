@@ -1,0 +1,35 @@
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\bin\Debug\net8.0\appsettings.json
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\bin\Debug\net8.0\bookstore backend.exe
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\bin\Debug\net8.0\bookstore backend.deps.json
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\bin\Debug\net8.0\bookstore backend.runtimeconfig.json
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\bin\Debug\net8.0\bookstore backend.dll
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\bin\Debug\net8.0\bookstore backend.pdb
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\bin\Debug\net8.0\Npgsql.dll
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\obj\Debug\net8.0\bookstore backend.csproj.AssemblyReference.cache
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\obj\Debug\net8.0\bookstore backend.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\obj\Debug\net8.0\bookstore backend.AssemblyInfoInputs.cache
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\obj\Debug\net8.0\bookstore backend.AssemblyInfo.cs
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\obj\Debug\net8.0\bookstore backend.csproj.CoreCompileInputs.cache
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\obj\Debug\net8.0\bookstore backend.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\obj\Debug\net8.0\bookstore backend.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\obj\Debug\net8.0\staticwebassets\msbuild.bookstore backend.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\obj\Debug\net8.0\staticwebassets\msbuild.build.bookstore backend.props
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.bookstore backend.props
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.bookstore backend.props
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\obj\Debug\net8.0\scopedcss\bundle\bookstore backend.styles.css
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\obj\Debug\net8.0\bookstore backend.csproj.CopyComplete
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\obj\Debug\net8.0\bookstore backend.dll
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\obj\Debug\net8.0\refint\bookstore backend.dll
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\obj\Debug\net8.0\bookstore backend.pdb
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\obj\Debug\net8.0\bookstore backend.genruntimeconfig.cache
+C:\Users\Dell\Desktop\bookstore-app\bookstore backend\obj\Debug\net8.0\ref\bookstore backend.dll
