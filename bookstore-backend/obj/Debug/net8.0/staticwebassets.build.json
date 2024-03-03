@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "NH6aT56kOL+XrPl1yvrQEZ8/G803UdwEnTOpLzrSnOc=",
+  "Source": "bookstore-backend",
+  "BasePath": "_content/bookstore-backend",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

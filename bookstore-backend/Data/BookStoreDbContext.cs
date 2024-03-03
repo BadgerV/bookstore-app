@@ -2,9 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
 using bookstore_backend.models;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace bookstore_backend.Data
 {
+
     public class BookStoreDbContext : DbContext
     {
         // Constructor to inject configuration options
@@ -12,18 +15,12 @@ namespace bookstore_backend.Data
 
         //Defining DbSets
         public DbSet<User> Users { get; set; }
-        public DbSet<Category> Categories { get; set;}
+        public DbSet<Category> Categories { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Review> Reviews { get; set; }
 
-
-        // Override OnConfiguring to configure the connection string
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseNpgsql("host=127.0.0.1 port=5432 dbname=postgres user=postgres password=xxxxxxx sslmode=prefer connect_timeout=10"); // Specify your PostgreSQL connection string
-        }
 
     }
 }
