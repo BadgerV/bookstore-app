@@ -20,6 +20,7 @@ namespace bookstore_backend.Data
 
 
         // Override OnConfiguring to configure the connection string
+        //just a frivolous comment
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseNpgsql("host=127.0.0.1 port=5432 dbname=postgres user=postgres password=xxxxxxx sslmode=prefer connect_timeout=10"); // Specify your PostgreSQL connection string
