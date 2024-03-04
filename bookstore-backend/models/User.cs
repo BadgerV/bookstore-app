@@ -28,11 +28,13 @@ namespace bookstore_backend.models
         public string LastName { get; set; }
         public string? ShippingAddress { get; set; }
         public string? BillingAddress { get; set; }  // Optional separate billing address
-        public bool IsAdmin { get; set; } // Flag to indicate admin privileges
+        public bool IsAdmin { get; set; } // Flag to indicate admin 
+
+        public bool IsAuthor { get; set; } // Flag to indicate author 
 
         // Additional optional properties based on requirements:
         public string? PhoneNumber { get; set; }
-        public DateTime? DateOfBirth { get; set; } // Birthday (consider privacy implications)
+        public DateOnly? DateOfBirth { get; set; } // Birthday (consider privacy implications)
         public List<Order>? Orders { get; set; } // Navigation property for user's orders
         public List<Review>? Reviews { get; set; } // Navigation property for user's reviews
 

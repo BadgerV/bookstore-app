@@ -13,14 +13,10 @@ namespace bookstore_backend.Controllers
    
     public class UserController : ControllerBase
     {
-        private readonly BookStoreDbContext _context;
-        private readonly ITokenManager _tokenManager;
         private readonly IUserService _userService;
 
-        public UserController(BookStoreDbContext context, ITokenManager tokenManager, IUserService userService)
+        public UserController(IUserService userService)
         {
-            _context = context;
-            _tokenManager = tokenManager;
             _userService = userService;
         }
 
@@ -85,6 +81,22 @@ namespace bookstore_backend.Controllers
         }
 
 
-        
+        [HttpPost]
+        [Route("/become-author")]
+        public async Task<IActionResult> BecomeAuthor([FromBody] UtilityClasses.BecomeAuthorInfos infos )
+        {
+            if(infos.billingAddress == null || infos.phoneNumber == null)
+            {
+                return BadRequest("Please provide all the fields");
+            }
+            var result = await _userService.BecomeAuthor(infos.phoneNumber, infos.dateOfBirth, infos.billingAddress);
+
+            if(!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+
+            return Ok(result);  
+        }
     }
 }

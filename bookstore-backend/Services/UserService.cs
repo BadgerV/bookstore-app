@@ -1,9 +1,11 @@
 ﻿using bookstore_backend.Data;
+using bookstore_backend.DTOs;
 using bookstore_backend.models;
 using bookstore_backend.Services.Interfaces;
 using bookstore_backend.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.ComponentModel;
 using System.Security.Claims;
 
 namespace bookstore_backend.Services
@@ -12,12 +14,17 @@ namespace bookstore_backend.Services
     {
         private readonly BookStoreDbContext _dbContext;
         private readonly ITokenManager _tokenManager;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UserService(BookStoreDbContext dbContext, ITokenManager tokenManager)
+        public UserService(BookStoreDbContext dbContext, ITokenManager tokenManager, IHttpContextAccessor httpContextAccessor)
         {
             _dbContext = dbContext;
-            _tokenManager = tokenManager;   
+            _tokenManager = tokenManager;
+            _httpContextAccessor = httpContextAccessor;
         }
+
+        
+
         public async Task<UserAuthenticationresult> Login(string password, string? email, string? username)
         {
             if(email != null && username != null)
@@ -166,5 +173,99 @@ namespace bookstore_backend.Services
             }
         }
 
+        public int GetAuthenticatedUserId()
+        {
+            ClaimsPrincipal currentUser = _httpContextAccessor.HttpContext!.User;
+
+            Claim? userIdClaim = currentUser.FindFirst(ClaimTypes.NameIdentifier);
+
+            if (userIdClaim == null)
+            {
+                // If userIdClaim is null, return a default value (0 in this case, assuming user IDs are positive integers)
+                return -1;
+            }
+            else
+            {
+                // Parse the value of userIdClaim to an integer and return it
+                return int.Parse(userIdClaim.Value);
+            }
+        }
+
+        
+
+        
+
+        public async Task<UserAuthenticationresult> BecomeAuthor(string phoneNumer, DateOnly dateOfBirth, string billingAddress)
+        {
+            var userId = GetAuthenticatedUserId();
+
+            if (userId == -1)
+            {
+                return new UserAuthenticationresult
+                {
+                    Success = false,
+                    Message = "Please authenticate"
+                };
+            }
+
+            var user = await _dbContext.Users.FirstOrDefaultAsync(user => user.Id == userId);
+
+            if (user == null)
+            {
+                return new UserAuthenticationresult
+                {
+                    Message = "Something went wrong",
+                    Success = false
+                };
+            }
+
+            if (user.IsAuthor == true)
+            {
+                return new UserAuthenticationresult
+                {
+                    Success = false,
+                    Message = "You are already an author"
+                };
+            }
+
+            user.PhoneNumber = phoneNumer;
+            user.DateOfBirth = dateOfBirth;
+            user.BillingAddress = billingAddress;
+            user.UpdatedAt = DateTime.UtcNow;
+            user.IsAuthor = true;
+
+            _dbContext.Users.Update(user);
+            await _dbContext.SaveChangesAsync();
+
+            return new UserAuthenticationresult
+            {
+                Success = true,
+                Message = "Success",
+                User = UtilityClasses.MapToUserDto(user)
+            };
+
+        }
+
+        public async Task<UserAuthenticationresult> GetCurrentUser()
+        {
+            int userId = GetAuthenticatedUserId();
+            var user = await _dbContext.Users.FirstOrDefaultAsync(user => user.Id == userId);
+
+            if(user == null)
+            {
+                return new UserAuthenticationresult
+                {
+                    Success = false,
+                    Message = "User does not exist",
+                };
+            }
+
+            return new UserAuthenticationresult
+            {
+                Success = true,
+                Message = "Success",
+                User = UtilityClasses.MapToUserDto(user)
+            };
+        }
     }
 }
