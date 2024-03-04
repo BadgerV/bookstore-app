@@ -34,5 +34,31 @@ namespace bookstore_backend.Services
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
+
+        public ClaimsPrincipal ValidateToken(string token)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            // Securely retrieve the signing key (not shown here)
+            var signingKey = GetSigninKey();
+
+            var validationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = signingKey,
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                // Consider a reasonable clock skew tolerance (e.g., TimeSpan.FromMinutes(5))
+                ClockSkew = TimeSpan.FromMinutes(5)
+            };
+
+            // Validate the token and return the claims principal
+            SecurityToken validatedToken;
+            ClaimsPrincipal principal = tokenHandler.ValidateToken(token, validationParameters, out validatedToken);
+
+            return principal;
+        }
+
+
     }
 }

@@ -9,7 +9,7 @@ namespace bookstore_backend.models
         [Required(ErrorMessage ="Username is required")]
         [MaxLength(25, ErrorMessage = "Username cannot be longer than 25 characters")]
         [MinLength(3, ErrorMessage = "Username too short")]
-        public required string Username { get; set; }
+        public string Username { get; set; }
 
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress(ErrorMessage = "Invalid email address")]

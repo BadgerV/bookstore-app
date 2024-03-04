@@ -5,57 +5,43 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using bookstore_backend.Services.Interfaces;
 using bookstore_backend.models;
+using bookstore_backend.Utilities;
+using Microsoft.IdentityModel.Tokens;
 
 namespace bookstore_backend.Controllers
 {
-    public class LoginRequest
-    {
-        public string Email { get; set; } = default!;
-        public string Username { get; set; } = default!;
-        public string Password { get; set; } = default!;
-    }
+   
     public class UserController : ControllerBase
     {
         private readonly BookStoreDbContext _context;
         private readonly ITokenManager _tokenManager;
+        private readonly IUserService _userService;
 
-        public UserController(BookStoreDbContext context, ITokenManager tokenManager)
+        public UserController(BookStoreDbContext context, ITokenManager tokenManager, IUserService userService)
         {
             _context = context;
             _tokenManager = tokenManager;
+            _userService = userService;
         }
 
         [HttpPost]
         [Route("/login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
+        public async Task<IActionResult> Login([FromBody] UtilityClasses.LoginRequest loginRequest)
         {
-            var userFromEmail = await _context.Users.FirstOrDefaultAsync(u => u.Email == loginRequest.Email);
-            var userFromUsername = await _context.Users.FirstOrDefaultAsync(u => u.Username == loginRequest.Username);
-
-            if(userFromEmail != null)
+            // Manually validate the request body
+            if (string.IsNullOrEmpty(loginRequest.Email) && string.IsNullOrEmpty(loginRequest.Username))
             {
-                if (!ValidatePassword(userFromEmail.PasswordHash!, loginRequest.Password))
-                {
-                    return BadRequest("Invalid username or password");
-                }
-
-                var tokenString = _tokenManager.GenerateJWTToken(userFromEmail);
-
-                return Ok(new { token = tokenString, userFromEmail });
-            } else if (userFromUsername != null)
-            {
-                if (!ValidatePassword(userFromUsername.PasswordHash!, loginRequest.Password))
-                {
-                    return BadRequest("Invalid username or password");
-                }
-
-                var tokenString = _tokenManager.GenerateJWTToken(userFromUsername);
-
-                return Ok(new { token = tokenString, userFromUsername });
-            } else
-            {
-                return BadRequest("Invalid credentials");
+                ModelState.AddModelError("Email, Username", "Email or username is required.");
             }
+
+            var result = await _userService.Login(loginRequest.Password!, loginRequest.Email, loginRequest.Username);
+
+            if(!result.Success)
+            {
+                return BadRequest(new { Success = result.Success, Message = result.Message });
+            }
+
+            return Ok(result);
         }
 
         [HttpPost]
@@ -64,40 +50,41 @@ namespace bookstore_backend.Controllers
         {
           if(!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                var errors = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage));
+                return BadRequest(new { Errors = errors });
             }
 
-            if(_context.Users.Any(x => x.Email == user.Email))
+            var result = await _userService.Signup(user.PasswordHash, user.Email, user.Username, user.FirstName, user.LastName);
+
+            if(!result.Success)
             {
-                return BadRequest("Email already in use");
+                return BadRequest(new { Success = result.Success, Message = result.Message });
             }
 
-            var hashedPassword = BCryptNet.HashPassword(user.PasswordHash);
-
-            var newUser = new User
-            {
-                Username = user.Username,
-                Email = user.Email,
-                PasswordHash = hashedPassword,
-                FirstName = user.FirstName,
-                LastName = user.LastName
-            };
-
-            await _context.AddAsync(newUser);
-
-            await _context.SaveChangesAsync();
-
-
-            var tokenString = _tokenManager.GenerateJWTToken(newUser);
-
-            // Return the token in the response
-            return Ok(new { token = tokenString, newUser });
+            return Ok(result);
         }
 
 
-        private bool ValidatePassword(string hashedPassword, string plainPassword)
+        [HttpPost]
+        [Route("/verify")]
+        public async Task<ActionResult<bool>> VerifyToken([FromBody] string token)
         {
-            return BCryptNet.Verify(plainPassword, hashedPassword);
+            if(token.IsNullOrEmpty())
+            {
+                ModelState.AddModelError("Token", "Please provide a valid token");
+            }
+            var result =  await _userService.VerifyToken(token);
+
+            if(result == true)
+            {
+                return Ok(true);
+            } else
+            {
+                return Ok(false);
+            };
         }
+
+
+        
     }
 }

@@ -18,6 +18,9 @@ builder.Services.AddDbContext<BookStoreDbContext>(options => options.UseNpgsql(c
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<ITokenManager, TokenManager>();
+builder.Services.AddScoped<IUserService, UserService>();
+
+
 
 
 
@@ -30,8 +33,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         var ourSecret = new SymmetricSecurityKey(secret);
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuer = true,
-            ValidateAudience = true,
+            ValidateIssuer = false,
+            ValidateAudience = false,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
 
