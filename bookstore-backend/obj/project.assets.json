@@ -1135,11 +1135,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Dell\\Desktop\\bookstore-app\\bookstore backend\\bookstore-backend.csproj",
+      "projectUniqueName": "C:\\Users\\Dell\\Desktop\\bookstore-app\\bookstore-backend\\bookstore-backend.csproj",
       "projectName": "bookstore-backend",
-      "projectPath": "C:\\Users\\Dell\\Desktop\\bookstore-app\\bookstore backend\\bookstore-backend.csproj",
+      "projectPath": "C:\\Users\\Dell\\Desktop\\bookstore-app\\bookstore-backend\\bookstore-backend.csproj",
       "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Dell\\Desktop\\bookstore-app\\bookstore backend\\obj\\",
+      "outputPath": "C:\\Users\\Dell\\Desktop\\bookstore-app\\bookstore-backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
