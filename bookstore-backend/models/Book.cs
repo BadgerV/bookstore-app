@@ -6,11 +6,9 @@
         public required string Author { get; set; }
         public byte[]? image { get; set; }
         public string? Description { get; set; } // Optional book description
-        public int CategoryId { get; set; } // Foreign key referencing Category (assuming a Category model exists)
-        public Category? Category { get; set; } // Navigation property for category
+        public List<string> Categories { get; set; } = new List<string>();
         public decimal Price { get; set; }
         public decimal? AverageRating { get; set; } // Average rating from all reviews
         public List<Review>? Reviews { get; set; } // Navigation property for reviews
     }
-
 }

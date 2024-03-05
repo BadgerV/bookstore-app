@@ -15,7 +15,7 @@ namespace bookstore_backend.Controllers
 
         [HttpPost]
         [Route("/book/post-book")]
-        public async Task<IActionResult> PostBook([FromBody] BookDto book)
+        public async Task<IActionResult> PostBook([FromBody] CreateBookDto book)
         {
                var result = await _bookService.AddNewBook(book);   
 
@@ -24,7 +24,87 @@ namespace bookstore_backend.Controllers
                 return BadRequest(result.Message);
             }
 
-            return BadRequest(result);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("/book/get-book")]
+        public async Task<IActionResult> GetBook([FromQuery] int id)
+        {
+            var result =await _bookService.GetBook(id);
+
+            if(!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("/book/get-books")]
+        public async Task<IActionResult> GetBooks([FromQuery] int page, int pageSize)
+        {
+            var result = await _bookService.GetBooks(page, pageSize);
+
+            if(!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+
+            return Ok(result);
+        }
+        [HttpGet]
+        [Route("/book/get-books-by-category")]
+        public async Task<IActionResult> GetBooksByCategory([FromQuery] string category, int page = 1, int pageSize= 10)
+        {
+            var result = await _bookService.GetBooksByCategory(category, page, pageSize);
+
+            if(!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+
+            return Ok(result);
+        }
+        [HttpDelete]
+        [Route("/book/delete-book")]
+        public async Task<IActionResult> DeleteBook([FromQuery] int id)
+        {
+            var result = await _bookService.DeleteBook(id);
+
+            if(!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+
+            return Ok(result);
+        }
+        [HttpPatch]
+        [Route("/book/update-book")]
+        public async Task<IActionResult> UpdateBook([FromQuery] int id, [FromBody] CreateBookDto book)
+        {
+            var result = await _bookService.UpdateBook(book, id);
+
+            if(!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+
+            return Ok(result);
+        }
+        [HttpGet]
+        [Route("/book/books-by-the-same-author")]
+        public async Task<IActionResult> GetBooksByTheSameAuthor([FromQuery] string authorName)
+        {
+            var result = await _bookService.GetBooksByTheSameAuthor(authorName);
+
+            if(!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+
+            return Ok(result);
         }
     }
 }

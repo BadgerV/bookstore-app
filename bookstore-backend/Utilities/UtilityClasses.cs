@@ -59,10 +59,23 @@ namespace bookstore_backend.Utilities
                 Author = bookDto.Author ?? string.Empty,
                 Description = bookDto.Description,
                 image = bookDto.image,
-                CategoryId = bookDto.CategoryId,
+                
                 Price = bookDto.Price,
                 // Assuming other properties like Category, AverageRating, and Reviews are not part of the DTO
                 // They can be populated from the database later if needed
+            };
+        }
+
+        public static BookDto ConvertBookToDto(Book book)
+        {
+            return new BookDto
+            {
+                Title = book.Title,
+                Author = book.Author,
+                Description = book.Description,
+                image = book.image,
+                
+                Price = book.Price
             };
         }
     }
