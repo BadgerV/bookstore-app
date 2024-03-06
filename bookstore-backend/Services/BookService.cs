@@ -4,8 +4,6 @@ using bookstore_backend.models;
 using bookstore_backend.Services.Interfaces;
 using bookstore_backend.Utilities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System.Diagnostics;
 
 namespace bookstore_backend.Services
 {
@@ -115,7 +113,7 @@ namespace bookstore_backend.Services
 
             var bookCount = await _dbContext.Books.CountAsync();
 
-            var totalPages = (int)Math.Ceiling((double)bookCount / page);
+            var totalPages = (int)Math.Ceiling((double)bookCount / pageSize);
 
             if(page > totalPages)
             {
@@ -161,14 +159,41 @@ namespace bookstore_backend.Services
         }
 
 
-        public Task<ApiResponse<IEnumerable<BookDto>>> GetBooksByRecommendation()
+        public async Task<ApiResponse<IEnumerable<BookDto>>> GetBooksByRecommendation()
         {
-            throw new NotImplementedException();
+            var randndomBooks = await _dbContext.Books.OrderBy(x => Guid.NewGuid()).Take(10).ToListAsync();
+
+            var randomBookDTOS = randndomBooks.Select(book => UtilityClasses.ConvertBookToDto(book));
+
+            return new ApiResponse<IEnumerable<BookDto>>
+            (
+                true,
+                "Success",
+                randomBookDTOS
+            );
         }
 
-        public Task<ApiResponse<IEnumerable<BookDto>>> GetBooksBySearchQuery(string searchQuery)
+        public async Task<ApiResponse<IEnumerable<BookDto>>> GetBooksBySearchQuery(string searchQuery, int page = 1, int pageSize = 10)
         {
-            throw new NotImplementedException();
+            var booksCount = await _dbContext.Books.CountAsync();
+
+            var totalPages = (int)Math.Ceiling((double)booksCount / pageSize);
+
+            if (page > totalPages)
+            {
+                return new ApiResponse<IEnumerable<BookDto>>(false, "Maximum page exceeded");
+            }
+
+            var foundBooks = await _dbContext.Books.Where(book => book.Title.ToLower().Contains(searchQuery.ToLower())).OrderBy(x => x.Title).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            if (foundBooks.Count == 0)
+            {
+                return new ApiResponse<IEnumerable<BookDto>>(false, "No books found");
+            }
+
+            var foundBookDTOs = foundBooks.Select(x => UtilityClasses.ConvertBookToDto(x));
+
+            return new ApiResponse<IEnumerable<BookDto>>(true, "Success", foundBookDTOs);
         }
 
         public async Task<ApiResponse<IEnumerable<BookDto>>> GetBooksByTheSameAuthor(string authorUsername, int page = 1, int pageSize = 10)
@@ -202,14 +227,50 @@ namespace bookstore_backend.Services
             throw new NotImplementedException();
         }
 
-        public Task<ApiResponse<IEnumerable<Review>>> GetReviewsForBook(int bookId)
+        public async Task<ApiResponse<IEnumerable<ReviewDto>>> GetReviewsForBook(int bookId)
         {
-            throw new NotImplementedException();
+            var book = await _dbContext.Books.FirstOrDefaultAsync(x => x.Id == bookId);
+
+            if(book == null)
+            {
+                return new ApiResponse<IEnumerable<ReviewDto>>(false, "Book not found");
+            }
+
+            var reviewsForBook = await _dbContext.Reviews.Include(x => x.User).Include(x => x.Book).Where(review => review.BookId == bookId).ToListAsync();
+
+
+            if(reviewsForBook.Count == 0)
+            {
+                return new ApiResponse<IEnumerable<ReviewDto>>(false, "This book has no reviews yet");
+            }
+
+            var reviewForBooksDto = reviewsForBook.Select(bookreview => UtilityClasses.ConvertReviewToDto(bookreview));
+
+            return new ApiResponse<IEnumerable<ReviewDto>>(true, "Success", reviewForBooksDto);
         }
 
         public Task<ApiResponse<IEnumerable<BookDto>>> GetSimilarBooks(int bookId)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<ApiResponse<int>> GetAverageRatingForBook(int bookId)
+        {
+            var ratingReviewsForBook = await _dbContext.Reviews.Where(review => review.BookId == bookId).Select(x => x.Rating).ToListAsync();
+
+            if(ratingReviewsForBook == null)
+            {
+                return new ApiResponse<int>(false, "Book not found");
+            }
+
+            if (ratingReviewsForBook.Count() == 0)
+            {
+                return new ApiResponse<int>(false, "This book has no ratings yet");
+            }
+
+            var averagveRating = (int)ratingReviewsForBook.Sum() / ratingReviewsForBook.Count();
+
+            return new ApiResponse<int>(true, "Success", averagveRating);
         }
 
         public async Task<ApiResponse<BookDto>> UpdateBook(CreateBookDto book, int id)

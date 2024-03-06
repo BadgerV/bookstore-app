@@ -22,5 +22,14 @@ namespace bookstore_backend.Data
         public DbSet<Review> Reviews { get; set; }
 
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Review>().
+                HasOne<User>(r => r.User).WithMany(x => x.Reviews).HasForeignKey(r => r.UserId).IsRequired();
+
+            modelBuilder.Entity<Review>().
+                HasOne<Book>(r => r.Book).WithMany().HasForeignKey(r => r.BookId).IsRequired();
+        }
     }
 }

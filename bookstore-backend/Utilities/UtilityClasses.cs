@@ -36,6 +36,7 @@ namespace bookstore_backend.Utilities
                 LastName = user.LastName,
                 ShippingAddress = user.ShippingAddress,
                 IsAuthor = user.IsAuthor || false,
+                Id = user.Id,
             };
         }
 
@@ -76,6 +77,17 @@ namespace bookstore_backend.Utilities
                 image = book.image,
                 
                 Price = book.Price
+            };
+        }
+
+        public static ReviewDto ConvertReviewToDto(Review review)
+        {
+            return new ReviewDto
+            {
+                UserUsername = review.User!.Username,
+                BookName = review.Book!.Title,
+                Comment = review.Comment,
+                Rating = review.Rating,
             };
         }
     }

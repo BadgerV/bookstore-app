@@ -23,6 +23,7 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<ITokenManager, TokenManager>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddTransient<IBookService, BookService>();
+builder.Services.AddTransient<IReviewService, ReviewService>();
 
 // Configure JWT authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

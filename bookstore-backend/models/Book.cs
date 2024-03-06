@@ -9,6 +9,5 @@
         public List<string> Categories { get; set; } = new List<string>();
         public decimal Price { get; set; }
         public decimal? AverageRating { get; set; } // Average rating from all reviews
-        public List<Review>? Reviews { get; set; } // Navigation property for reviews
     }
 }

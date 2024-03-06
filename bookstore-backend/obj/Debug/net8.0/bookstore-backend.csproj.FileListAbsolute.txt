@@ -97,7 +97,6 @@ C:\Users\Dell\Desktop\bookstore-app\bookstore-backend\obj\Debug\net8.0\bookstore
 C:\Users\Dell\Desktop\bookstore-app\bookstore-backend\obj\Debug\net8.0\bookstore-backend.csproj.CoreCompileInputs.cache
 C:\Users\Dell\Desktop\bookstore-app\bookstore-backend\obj\Debug\net8.0\bookstore-backend.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Dell\Desktop\bookstore-app\bookstore-backend\obj\Debug\net8.0\bookstore-backend.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\Dell\Desktop\bookstore-app\bookstore-backend\obj\Debug\net8.0\bookstore-backend.sourcelink.json
 C:\Users\Dell\Desktop\bookstore-app\bookstore-backend\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\Dell\Desktop\bookstore-app\bookstore-backend\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\Dell\Desktop\bookstore-app\bookstore-backend\obj\Debug\net8.0\staticwebassets\msbuild.bookstore-backend.Microsoft.AspNetCore.StaticWebAssets.props

@@ -106,5 +106,61 @@ namespace bookstore_backend.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet]
+        [Route("/book/recommend-books")]
+        public async Task<IActionResult> GetBooksByRecommendation()
+        {
+            var result = await _bookService.GetBooksByRecommendation();
+
+            if(!result.Success)
+            {
+                return BadRequest(result?.Message);
+            }
+
+            return Ok(result);
+        }
+        [HttpGet]
+        [Route("/book/books-by-search-query")]
+        public async Task<IActionResult> GetBooksBySearchQuery([FromQuery] string query)
+        {
+            var result = await _bookService.GetBooksBySearchQuery(query);
+
+            if(!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("/book/book-review")]
+        public async Task<IActionResult> GetReviewForBook([FromQuery] int id)
+        {
+            var result = await _bookService.GetReviewsForBook(id);
+
+            if(!result.Success)
+            {
+                return BadRequest(result?.Message);
+            }
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("/book/get-average-rating")]
+        public async Task<IActionResult> GetAverageBookRating([FromQuery] int id)
+        {
+            var result = await _bookService.GetAverageRatingForBook(id);
+
+            if (!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+
+            return Ok(result);
+
+        }
     }
 }

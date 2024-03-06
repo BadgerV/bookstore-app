@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 
 
@@ -9,23 +10,23 @@ namespace bookstore_backend.models
         [Required(ErrorMessage ="Username is required")]
         [MaxLength(25, ErrorMessage = "Username cannot be longer than 25 characters")]
         [MinLength(3, ErrorMessage = "Username too short")]
-        public string Username { get; set; }
+        public string? Username { get; set; }
 
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress(ErrorMessage = "Invalid email address")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
         [Required(ErrorMessage = "Password is required")]
-        public string PasswordHash { get; set; } // Hashed password for security
+        public string? PasswordHash { get; set; } // Hashed password for security
 
         [Required(ErrorMessage = "Please provide a first name")]
         [MaxLength(25, ErrorMessage = "First name cannot be more than 25 characters")]
         [MinLength(3, ErrorMessage = "First name cannot be shorter then 3 characters")]
-        public string FirstName { get; set; }
+        public string? FirstName { get; set; }
 
         [Required(ErrorMessage = "Last name is required")]
         [MaxLength(25, ErrorMessage = "Last name cannot be more than 25 characters")]
         [MinLength(3, ErrorMessage = "Last name cannot be less than 3 characters")]
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
         public string? ShippingAddress { get; set; }
         public string? BillingAddress { get; set; }  // Optional separate billing address
         public bool IsAdmin { get; set; } // Flag to indicate admin 
@@ -36,6 +37,7 @@ namespace bookstore_backend.models
         public string? PhoneNumber { get; set; }
         public DateOnly? DateOfBirth { get; set; } // Birthday (consider privacy implications)
         public List<Order>? Orders { get; set; } // Navigation property for user's orders
+        [JsonIgnore]
         public List<Review>? Reviews { get; set; } // Navigation property for user's reviews
 
         public User()

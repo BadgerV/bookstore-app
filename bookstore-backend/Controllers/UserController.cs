@@ -50,7 +50,7 @@ namespace bookstore_backend.Controllers
                 return BadRequest(new { Errors = errors });
             }
 
-            var result = await _userService.Signup(user.PasswordHash, user.Email, user.Username, user.FirstName, user.LastName);
+            var result = await _userService.Signup(user.PasswordHash!, user.Email!, user.Username!, user.FirstName!, user.LastName!);
 
             if(!result.Success)
             {

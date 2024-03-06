@@ -9,7 +9,7 @@ namespace bookstore_backend.Services.Interfaces
     {
         Task<ApiResponse<IEnumerable<BookDto>>> GetBooks(int page, int pageSize);
         Task<ApiResponse<BookDto>> GetBook(int id);
-        Task<ApiResponse<IEnumerable<BookDto>>> GetBooksBySearchQuery(string searchQuery);
+        Task<ApiResponse<IEnumerable<BookDto>>> GetBooksBySearchQuery(string searchQuery, int page = 1, int pageSize = 10);
         Task<ApiResponse<Book>> AddNewBook(CreateBookDto book);
         Task<ApiResponse<BookDto>> UpdateBook(CreateBookDto book, int id);
         Task<ApiResponse<bool>> DeleteBook(int id);
@@ -19,6 +19,7 @@ namespace bookstore_backend.Services.Interfaces
         Task<ApiResponse<IEnumerable<BookDto>>> GetBooksByTopRated();
         Task<ApiResponse<IEnumerable<BookDto>>> GetSimilarBooks(int bookId);
         Task<ApiResponse<IEnumerable<BookDto>>> GetRelatedBooks(int bookId);
-        Task<ApiResponse<IEnumerable<Review>>> GetReviewsForBook(int bookId);
+        Task<ApiResponse<IEnumerable<ReviewDto>>> GetReviewsForBook(int bookId);
+        Task<ApiResponse<int>> GetAverageRatingForBook(int bookId);
     }
 }

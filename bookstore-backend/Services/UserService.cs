@@ -191,10 +191,6 @@ namespace bookstore_backend.Services
             }
         }
 
-        
-
-        
-
         public async Task<UserAuthenticationresult> BecomeAuthor(string phoneNumer, DateOnly dateOfBirth, string billingAddress)
         {
             var userId = GetAuthenticatedUserId();

@@ -285,7 +285,7 @@ namespace bookstore_backend.Migrations
             modelBuilder.Entity("bookstore_backend.models.Review", b =>
                 {
                     b.HasOne("bookstore_backend.models.Book", "Book")
-                        .WithMany("Reviews")
+                        .WithMany()
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -299,11 +299,6 @@ namespace bookstore_backend.Migrations
                     b.Navigation("Book");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("bookstore_backend.models.Book", b =>
-                {
-                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("bookstore_backend.models.Order", b =>
