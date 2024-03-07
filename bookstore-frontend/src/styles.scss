@@ -1,1 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-display: 16px;
+}
+// mixins
+
+//functions
+
+// variables
+$backgroundColor: #473324;
+$textColorPrimary: #ffffff;
+$textColorSecondary: #c7a894;
+$accentColor: #e56e1a;
+
+
+html {
+  font-family: "Montserrat", sans-serif;
+  background-color: $backgroundColor;
+}
+
+span {
+    color: $textColorPrimary;
+}
