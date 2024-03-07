@@ -1,0 +1,10 @@
+<div class="top-rated-books">
+  <div class="top-rated-books-top">
+    <span>Top Rated</span>
+    <a>See more</a>
+  </div>
+
+  <div class="top-rated-book-cards-container">
+    <app-book-card [book]="book" *ngFor="let book of books"></app-book-card>
+  </div>
+</div>

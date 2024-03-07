@@ -1,0 +1,34 @@
+@import "../../../styles.scss";
+
+.book-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.7rem;
+  transition: 0.1s all ease-in-out;
+  border-radius: 5px;
+
+  cursor: pointer;
+
+  img {
+    width: 200px;
+    height: 205px;
+    object-fit: cover;
+  }
+
+  .book-name {
+    color: $textColorPrimary;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .author-name {
+    color: $textColorSecondary;
+    font-size: 0.8rem;
+    font-weight: 300;
+  }
+
+  &:hover {
+    background-color: darken($color: $backgroundColor, $amount: 3);
+  }
+}

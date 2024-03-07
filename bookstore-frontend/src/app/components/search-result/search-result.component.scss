@@ -1,0 +1,57 @@
+@import "../../../styles.scss";
+
+.search-result {
+  background-color: darken($color: $backgroundColor, $amount: 2);
+  height: 6rem;
+  padding: 0.5rem;
+
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  align-items: center;
+
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s all ease-in-out;
+
+  &:hover {
+    background-color: darken($color: $backgroundColor, $amount: 3);
+  }
+}
+
+.search-result-left {
+  height: 95%;
+  width: 80px;
+  img {
+    max-height: 100%;
+    max-width: 100%;
+    display: block;
+    object-fit: cover;
+  }
+}
+
+.search-result-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+
+  .search-result-title {
+    font-size: 1rem;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .search-result-rating {
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: $textColorSecondary;
+  }
+
+  .search-result-author {
+    color: $textColorPrimary;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+}

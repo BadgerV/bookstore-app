@@ -1,0 +1,10 @@
+<div class="book-card">
+  <img
+    src="{{ book.img }}"
+    alt="{{ book.name }}"
+    [style.min-width]="isOfTypeCategory && '250px'"
+  />
+
+  <span class="book-name">{{ book.name }}</span>
+  <span class="author-name" *ngIf="!isOfTypeCategory">{{ book.author }}</span>
+</div>

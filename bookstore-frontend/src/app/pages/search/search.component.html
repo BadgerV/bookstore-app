@@ -1,1 +1,19 @@
-<p>search works!</p>
+<div class="search-container">
+  <div class="search">
+    <div class="search-input-container">
+      <img src="../../../assets/images/search-icon.svg" alt="icon" />
+      <input type="text" placeholder="Search for books" />
+    </div>
+
+    <span>Results for "{{ searchTitle }}"</span>
+
+    <div class="search-results-container">
+      <app-search-result
+        [result]="result"
+        *ngFor="let result of searchResults"
+      ></app-search-result>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

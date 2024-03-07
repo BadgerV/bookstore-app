@@ -1,0 +1,10 @@
+<div class="recommended-books">
+  <div class="recommended-books-top">
+    <span>Recommedned for you</span>
+    <a>See more</a>
+  </div>
+
+  <div class="recommended-book-cards-container">
+    <app-book-card [book]="book" *ngFor="let book of books"></app-book-card>
+  </div>
+</div>

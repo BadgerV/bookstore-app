@@ -1,0 +1,13 @@
+<div class="popular-categories-books">
+  <div class="popular-categories-books-top">
+    <span>Popular Categories</span>
+  </div>
+
+  <div class="popular-categories-book-cards-container">
+    <app-book-card
+      [isOfTypeCategory]="true"
+      [book]="book"
+      *ngFor="let book of books"
+    ></app-book-card>
+  </div>
+</div>
