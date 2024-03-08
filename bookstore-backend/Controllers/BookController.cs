@@ -43,7 +43,7 @@ namespace bookstore_backend.Controllers
 
         [HttpGet]
         [Route("/book/get-books")]
-        public async Task<IActionResult> GetBooks([FromQuery] int page, int pageSize)
+        public async Task<IActionResult> GetBooks([FromQuery] int page = 1, int pageSize = 10)
         {
             var result = await _bookService.GetBooks(page, pageSize);
 

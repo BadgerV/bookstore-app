@@ -1,4 +1,4 @@
-import { Review } from '../models/ReviewModel';
+import { Review } from '../shared/models/ReviewModel';
 
 export function calculateStarPercentage(reviews: Review[]): {
   [key: string]: number;
