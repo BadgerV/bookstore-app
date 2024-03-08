@@ -1,0 +1,60 @@
+@import "../../../styles.scss";
+
+.author-page-container {
+  margin-top: 1.5rem;
+  .author {
+    width: min(95%, 1100px);
+    margin-inline: auto;
+  }
+}
+
+.author-top {
+  div {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+
+    .top-left {
+      img {
+        object-fit: cover;
+        height: 10rem;
+        width: 10rem;
+      }
+    }
+
+    .top-right {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      justify-content: center;
+
+      .author-name {
+        font-weight: 700;
+        font-size: 1.5rem;
+      }
+
+      .author-best-work {
+        font-size: 0.9rem;
+        font-weight: 300;
+        color: $textColorSecondary;
+      }
+    }
+  }
+
+  .top-bottom {
+    margin-top: 1.5rem;
+    display: block;
+
+    font-size: 0.9rem;
+    color: $textColorSecondary;
+    font-weight: 300;
+    text-align: justify;
+    padding: 0 0.5rem;
+
+    line-height: 160%;
+  }
+}
+
+.author-middle {
+    
+}

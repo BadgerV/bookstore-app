@@ -2,7 +2,8 @@
   <img
     src="{{ book.img }}"
     alt="{{ book.name }}"
-    [style.min-width]="isOfTypeCategory && '250px'"
+    [style.min-width]="isOfTypeCategory && '100%'"
+    [style.max-width]="isOfTypeCategory && '100%'"
   />
 
   <span class="book-name">{{ book.name }}</span>

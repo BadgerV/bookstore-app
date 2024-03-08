@@ -1,0 +1,65 @@
+@import "../../../styles.scss";
+
+.review {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem 0;
+}
+
+.name {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+}
+
+.date {
+  display: flex;
+  color: $textColorSecondary;
+  font-size: 0.85rem;
+  font-weight: 300;
+  margin-bottom: 0.6rem;
+}
+
+.review-text {
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 160%;
+}
+
+.raters-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 0.6rem;
+
+  gap: 3rem;
+
+  div {
+    display: flex;
+    flex-direction: row;
+
+    gap: 0.5rem;
+    align-items: center;
+    cursor: pointer;
+
+    span {
+      font-size: 0.9rem;
+      color: $textColorSecondary;
+    }
+
+    img {
+      height: 1.3rem;
+      border: none;
+    }
+  }
+}
+
+.stars-container {
+  display: flex;
+  flex-direction: row;
+  gap: 0.2rem;
+  margin-bottom: 0.8rem;
+
+  img {
+    height: 1rem;
+  }
+}

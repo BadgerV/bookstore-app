@@ -1,0 +1,236 @@
+@import "../../../styles.scss";
+
+.book-page {
+  margin-top: 1.5rem;
+
+  .book-page-container {
+    width: min(95%, 800px);
+
+    margin-inline: auto;
+  }
+}
+
+.basic-book-info-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+
+  .left {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 0;
+
+    .category {
+      color: $textColorSecondary;
+      font-size: 0.9rem;
+      font-weight: 300;
+
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+
+    .name {
+      font-weight: 700;
+      font-size: 1.3rem;
+
+      cursor: pointer;
+
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .author {
+      font-weight: 500;
+      font-size: 0.9rem;
+      cursor: pointer;
+
+      color: $textColorSecondary;
+    }
+
+    button {
+      margin-top: auto;
+      background-color: $accentColor;
+      color: $textColorPrimary;
+
+      outline: none;
+      border: none;
+
+      padding: 0.6rem 0;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: 0.2s all ease-in-out;
+
+      cursor: pointer;
+
+      &:hover {
+        background-color: darken($color: $accentColor, $amount: 3);
+      }
+    }
+  }
+
+  .right {
+    height: 11rem;
+    width: 18rem;
+
+    img {
+      max-height: 100%;
+      min-height: 100%;
+      min-width: 100%;
+      max-width: 100%;
+      object-fit: cover;
+
+      border-radius: 5px;
+    }
+  }
+}
+
+.book-details-container {
+  .book-details-text {
+    font-size: 1.3rem;
+    font-weight: 700;
+
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  div {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+
+    .book-detail {
+      background-color: transparentize($color: $accentColor, $amount: 0.6);
+      padding: 1rem 0;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      border-radius: 10px;
+
+      width: 14rem;
+
+      span {
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+
+      .big-text {
+        font-size: 1.2rem;
+        font-weight: 7000;
+      }
+    }
+  }
+}
+
+.about-book-container {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  h3 {
+    color: $textColorPrimary;
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+
+  span {
+    font-size: 0.9rem;
+    line-height: 160%;
+    text-align: justify;
+  }
+}
+
+.review-overview {
+  margin-top: 1.5rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: $textColorPrimary;
+  }
+
+  .review-inner {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    margin-top: 1rem;
+
+    .reviews-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: center;
+
+      h2 {
+        color: $textColorPrimary;
+        font-size: 2rem;
+        font-weight: 700;
+      }
+
+      .stars-container {
+        display: flex;
+        flex-direction: row;
+        gap: 0.2rem;
+        img {
+          height: 1rem;
+        }
+      }
+
+      .number-of-ratings {
+        font-size: 0.8rem;
+        color: $textColorSecondary;
+        font-weight: 300;
+      }
+    }
+
+    .reviews-right {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      flex: 1;
+      position: relative;
+
+      .rating-streak {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.5rem;
+
+        span {
+          font-size: 0.9rem;
+          font-weight: 300;
+        }
+
+        .streak-container {
+          position: relative;
+          width: 100%;
+
+          div {
+            height: 0.5rem;
+            width: 100%;
+            background-color: $textColorSecondary;
+            border-radius: 5px;
+            position: absolute;
+            top: 50%;
+
+            transform: translateY(-50%);
+            left: 0;
+          }
+
+          .rating-bar1 {
+            transition: 0.3s all ease-in-out;
+            background-color: $accentColor;
+            width: 0;
+          }
+        }
+      }
+    }
+  }
+}

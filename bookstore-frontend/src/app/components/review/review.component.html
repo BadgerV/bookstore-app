@@ -1,0 +1,28 @@
+<div class="review">
+  <span class="name"> {{ review.username }} </span>
+  <span class="date"> {{ review.date }} </span>
+  <div class="stars-container">
+    <img
+      src="../../../assets/images/filled-star-icon.png"
+      alt=""
+      *ngFor="let item of [].constructor(review.stars)"
+    />
+    <img
+      src="../../../assets/images/empty-star.png"
+      alt=""
+      *ngFor="let item of [].constructor(5 - review.stars)"
+    />
+  </div>
+  <span class="review-text"> {{ review.comment }} </span>
+
+  <div class="raters-container">
+    <div class="raters-left">
+      <img src="../../../assets/images/up-vote.png" alt="Vote Up" />
+      <span>{{ review.likes }}</span>
+    </div>
+    <div class="raters-right">
+      <img src="../../../assets/images/down-vote.png" alt="Vote Up" />
+      <span>{{ review.dislikes }}</span>
+    </div>
+  </div>
+</div>

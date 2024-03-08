@@ -1,31 +1,36 @@
-<div class="header">
-  <div class="header-left">
-    <div class="logo">
-      <span>Scribes Sanctum</span>
-    </div>
-
-    <div class="header-input-container">
-      <img src="../../../assets/images/search-icon.svg" alt="Icon" />
-      <input type="text" placeholder="Search" />
-      <button>Go</button>
-    </div>
-  </div>
-  <div class="header-right" *ngIf="isLoggedIn">
-    <div class="icon-container">
-      <div class="header-image-cont">
-        <img src="../../../assets/images/notif-icon.svg" alt="notification" />
+<div class="header-container">
+  <div class="header">
+    <div class="header-left">
+      <div class="logo">
+        <span>Scribes Sanctum</span>
       </div>
-      <div class="header-image-cont">
-        <img src="../../../assets/images/bookmark-icon.svg" alt="bookmark" />
+
+      <div class="header-input-container">
+        <img src="../../../assets/images/search-icon.svg" alt="Icon" />
+        <input type="text" placeholder="Search" />
+        <button>Go</button>
       </div>
     </div>
+    <div class="header-right" *ngIf="isLoggedIn">
+      <div class="icon-container">
+        <div class="header-image-cont">
+          <img src="../../../assets/images/notif-icon.svg" alt="notification" />
+        </div>
+        <div class="header-image-cont">
+          <img src="../../../assets/images/bookmark-icon.svg" alt="bookmark" />
+        </div>
+      </div>
 
-    <div class="header-profile-pic-cont">
-      <img src="../../../assets/images/profile-image.png" alt="Profile Image" />
+      <div class="header-profile-pic-cont">
+        <img
+          src="../../../assets/images/profile-image.png"
+          alt="Profile Image"
+        />
+      </div>
     </div>
-  </div>
-  <div class="header-right" *ngIf="!isLoggedIn" style="gap : 1rem">
-    <button>Get started</button>
-    <button>Login</button>
+    <div class="header-right" *ngIf="!isLoggedIn" style="gap: 1rem">
+      <button>Get started</button>
+      <button>Login</button>
+    </div>
   </div>
 </div>

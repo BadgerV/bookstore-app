@@ -1,11 +1,129 @@
 <div class="book-page">
-  <div class="basic-book-info-container">
-    
+  <div class="book-page-container">
+    <div class="basic-book-info-container">
+      <div class="left">
+        <span class="category">Fiction</span>
+        <span class="name">Entropy's Dance</span>
+        <div class="author">Segunmaru Faozan</div>
+
+        <button>Read now</button>
+      </div>
+      <div class="right">
+        <img src="../../../assets/images/book-image-3.png" alt="Book Image" />
+      </div>
+    </div>
+    <!-- <div class="book-details-container">
+      <span class="book-details-text">Book Details</span>
+
+      <div>
+        <div class="book-detail">
+          <span class="big-text">No of chapters:</span>
+          <span>54</span>
+        </div>
+
+        <div class="book-detail">
+          <span class="big-text">Published:</span>
+          <span>2024</span>
+        </div>
+      </div>
+    </div> -->
+    <div class="about-book-container">
+      <h3>About this book</h3>
+
+      <span
+        >"Entropy's Dance" is a captivating narrative that delves into the
+        intricate interplay between chaos and order, exploring the profound
+        implications of entropy in both the natural world and human existence.
+        Through vivid prose and thought-provoking storytelling, the author
+        unravels the mysteries of entropy, weaving together themes of
+        unpredictability, resilience, and the relentless pursuit of equilibrium.
+        Set against the backdrop of a rapidly changing world, the book takes
+        readers on a journey of self-discovery and enlightenment, challenging
+        conventional notions of fate and free will. With its lyrical prose and
+        philosophical depth, "Entropy's Dance" invites readers to contemplate
+        the delicate balance between order and disorder, offering profound
+        insights into the fundamental nature of existence.</span
+      >
+    </div>
+    <div class="review-overview">
+      <h3>Reviews</h3>
+
+      <div class="review-inner">
+        <div class="reviews-left">
+          <h2>{{ percentages["average"].toFixed(1) }}</h2>
+
+          <div class="stars-container">
+            <img
+              src="../../../assets/images/filled-star-icon.png"
+              alt=""
+              *ngFor="let item of [].constructor(stars)"
+            />
+            <img
+              src="../../../assets/images/empty-star.png"
+              alt=""
+              *ngFor="let item of [].constructor(5 - stars)"
+            />
+          </div>
+          <span class="number-of-ratings">120000 reviews</span>
+        </div>
+        <div class="reviews-right">
+          <div class="rating-streak">
+            <span>5</span>
+            <div class="streak-container">
+              <div class="rating-bar"></div>
+              <div
+                class="rating-bar1"
+                [style.width]="percentages['five'] + '%'"
+              ></div>
+            </div>
+          </div>
+          <div class="rating-streak">
+            <span>4</span>
+            <div class="streak-container">
+              <div class="rating-bar"></div>
+              <div
+                class="rating-bar1"
+                [style.width]="percentages['four'] + '%'"
+              ></div>
+            </div>
+          </div>
+          <div class="rating-streak">
+            <span>3</span>
+            <div class="streak-container">
+              <div class="rating-bar"></div>
+              <div
+                class="rating-bar1"
+                [style.width]="percentages['three'] + '%'"
+              ></div>
+            </div>
+          </div>
+          <div class="rating-streak">
+            <span>2</span>
+            <div class="streak-container">
+              <div class="rating-bar"></div>
+              <div
+                class="rating-bar1"
+                [style.width]="percentages['two'] + '%'"
+              ></div>
+            </div>
+          </div>
+          <div class="rating-streak">
+            <span>1</span>
+            <div class="streak-container">
+              <div class="rating-bar"></div>
+              <div
+                class="rating-bar1"
+                [style.width]="percentages['one'] + '%'"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reviews-container">
+      <app-review *ngFor="let review of reviews" [review]="review"></app-review>
+    </div>
   </div>
-  <div class="book-details-container"></div>
-  <div class="about-book-container"></div>
-  <div class="review-overview"></div>
-  <div class="reviews-container"></div>
 </div>
 
 <app-footer></app-footer>

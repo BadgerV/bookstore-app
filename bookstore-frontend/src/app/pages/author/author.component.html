@@ -1,1 +1,63 @@
-<p>author works!</p>
+<div class="author-page-container">
+  <div class="author">
+    <div class="author-top">
+      <div>
+        <div class="top-left">
+          <img src="../../../assets/images/profile-image.png" alt="" />
+        </div>
+
+        <div class="top-right">
+          <span class="author-name">Segunmaru Faozan</span>
+          <span class="author-best-work">Author of {{ bestBookSoFar }}</span>
+        </div>
+      </div>
+
+      <span class="top-bottom">
+        Joanne Rowling, better known by her pen name J.K. Rowling, is a British
+        author. She is best known for writing the Harry Potter fantasy series,
+        which has won multiple awards and sold more than 500 million copies,
+        becoming the best-selling book series in history. The books are the
+        basis of a popular film series, over which Rowling had overall approval
+        on the scripts and was a producer on the final films. She also writes
+        crime novels under the pen name Robert Galbraith.
+      </span>
+    </div>
+    <div class="author-middle">
+      <span>Books</span>
+
+      <div>
+        <app-book-card
+          *ngFor="let book of booksByAuthor"
+          [book]="book"
+          [isOfTypeCategory]="true"
+        ></app-book-card>
+      </div>
+    </div>
+    <div class="author-bottom">
+      <span>Socials</span>
+
+      <div>
+        <div class="social-card">
+          <img src="../../../assets/images/twitter-ico.png" alt="" />
+          <span class="handle">{{ authorSocials.twitter }}</span>
+          <span>Twitter</span>
+        </div>
+        <div class="social-card">
+          <img src="../../../assets/images/facebook-ico.png" alt="" />
+          <span class="handle">{{ authorSocials.facebook }}</span>
+          <span>Facebook</span>
+        </div>
+        <div class="social-card">
+          <img src="../../../assets/images/youtube-ico.png" alt="" />
+          <span class="handle">{{ authorSocials.youtube }}</span>
+          <span>Youtube</span>
+        </div>
+        <div class="social-card">
+          <img src="../../../assets/images/insta-ico.png" alt="" />
+          <span class="handle">{{ authorSocials.insta }}</span>
+          <span>Instagram</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

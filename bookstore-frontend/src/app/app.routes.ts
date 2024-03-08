@@ -35,7 +35,7 @@ export const routes: Routes = [
     component: SignupComponent,
   },
   {
-    path: 'author-page',
+    path: 'author-page/:id',
     component: AuthorComponent,
   },
   {
