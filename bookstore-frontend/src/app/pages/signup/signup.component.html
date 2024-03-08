@@ -1,1 +1,63 @@
-<p>signup works!</p>
+<div class="signup-container">
+  <div class="signup">
+    <span class="title">Welcome to Scribe's Sanctum</span>
+    <span class="subtitle">The place to learn and discover</span>
+
+    <form [formGroup]="myForm" (ngSubmit)="onsubmit()">
+      <div class="label-and-input">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          placeholder="Create a username"
+          formControlName="username"
+        />
+      </div>
+      <div class="label-and-input">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="you@example.com"
+          formControlName="email"
+        />
+      </div>
+      <div class="label-and-input">
+        <label for="password">Pasword</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Create a password"
+          formControlName="password"
+        />
+      </div>
+      <div class="label-and-input">
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+          type="password"
+          name="confirmPassword"
+          id="confirmPassword"
+          placeholder="Confirm password"
+          formControlName="confirmPassword"
+        />
+      </div>
+
+      <div class="checkbox-and-text">
+        <input type="checkbox" name="check" id="check" />
+        <label for="check">I agree to the Terms of Service</label>
+      </div>
+
+      <button type="submit" [disabled]="!myForm.valid">Sign up</button>
+    </form>
+
+    <div class="already-done">
+      <span>Already have an account ?</span>
+      <a routerLink="/login">Sign in</a>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

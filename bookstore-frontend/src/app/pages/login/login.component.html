@@ -1,1 +1,37 @@
-<p>login works!</p>
+<div class="login-container">
+  <div class="login">
+    <span class="title">Welcome back to Scribe's Sanctum</span>
+
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+      <div class="label-and-input">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          formControlName="username"
+        />
+      </div>
+      <div class="label-and-input">
+        <label for="password">Pasword</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          formControlName="password"
+        />
+      </div>
+
+      <button type="submit" [disabled]="!myForm.valid">Login</button>
+    </form>
+
+    <div class="already-done">
+      <span>Don't have an account?</span>
+      <a routerLink="/signup">Sign up</a>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <app-footer></app-footer>
+</div>

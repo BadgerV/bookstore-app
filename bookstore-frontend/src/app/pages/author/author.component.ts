@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { Book } from '../../models/BookModel';
 import { BookCardComponent } from '../../components/book-card/book-card.component';
 import { NgFor } from '@angular/common';
+import { FooterComponent } from '../../components/footer/footer.component';
 
 @Component({
   selector: 'app-author',
   standalone: true,
-  imports: [BookCardComponent, NgFor],
+  imports: [BookCardComponent, NgFor, FooterComponent],
   templateUrl: './author.component.html',
   styleUrl: './author.component.scss',
 })
