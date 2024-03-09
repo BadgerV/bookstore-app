@@ -7,6 +7,7 @@ import { SignupComponent } from './components/auth/signup/signup.component';
 import { AuthorComponent } from './components/author/author.component';
 import { BookPageComponent } from './components/book-page/book-page.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { AuthGuard } from './core/routeGuards/MainGuard';
 // import { HomeComponent } from './pages/home/home.component';
 // import { LoginComponent } from './components/auth/login/login.component';
 // import { AddBookComponent } from './components/add-book/add-book.component';
@@ -33,10 +34,12 @@ export const routes: Routes = [
   {
     path: 'add-book',
     component: AddBookComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'search',
     component: SearchComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'signup',
@@ -45,10 +48,12 @@ export const routes: Routes = [
   {
     path: 'author-page/:id',
     component: AuthorComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'book-page/:id',
     component: BookPageComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: '**',

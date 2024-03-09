@@ -13,15 +13,15 @@ export class ApiService {
   endpoint = 'https://localhost:7028';
 
   //BOOKS
-  getBooks(): Observable<Book[]> {
-    return this.http.get<Book[]>('https://localhost:7028/book/get-books/').pipe(
-      catchError((error) => {
-        console.error('Error fetching books:', error);
-        // Handle the error gracefully in your component
-        throw error; // Use `throw` to rethrow the error for further handling
-      })
-    );
-  }
+  // getBooks(): Observable<Book[]> {
+  //   return this.http.get<Book[]>('https://localhost:7028/book/get-books/').pipe(
+  //     catchError((error) => {
+  //       console.error('Error fetching books:', error);
+  //       // Handle the error gracefully in your component
+  //       throw error; // Use `throw` to rethrow the error for further handling
+  //     })
+  //   );
+  // }
 
   //AUTH
   login(username: string, password: string): Observable<User> {
