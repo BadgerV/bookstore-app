@@ -21,3 +21,5 @@ namespace bookstore_backend.DTOs
         public decimal Price { get; set; }
     }
 }
+
+//just a frivolous comment
