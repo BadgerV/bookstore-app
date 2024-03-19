@@ -1,11 +1,8 @@
 ﻿using bookstore_backend.Data;
-using bookstore_backend.DTOs;
 using bookstore_backend.models;
 using bookstore_backend.Services.Interfaces;
 using bookstore_backend.Utilities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System.ComponentModel;
 using System.Security.Claims;
 
 namespace bookstore_backend.Services
@@ -23,78 +20,50 @@ namespace bookstore_backend.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        
-
-        public async Task<UserAuthenticationresult> Login(string password, string? email, string? username)
+        public async Task<UserAuthenticationresult> Login(string username, string password)
         {
-            if(email != null && username != null)
+            try
             {
-                return new UserAuthenticationresult
+                if (string.IsNullOrWhiteSpace(username))
                 {
-                    Success = false,
-                    Message = "Please provide only email or username not both"
-                };
-            }
-            var userFromEmail = await _dbContext.Users.FirstOrDefaultAsync(user => user.Email == email);
-            var userFromUsername = await _dbContext.Users.FirstOrDefaultAsync(user => user.Username == username);
+                    return new UserAuthenticationresult
+                    {
+                        Success = false,
+                        Message = "Invalid credentials!"
+                    };
+                }
 
-            if(userFromUsername == null && userFromEmail == null) {
-                return new UserAuthenticationresult
-                {
-                    Success = false,
-                    Message = "Invalid credentials. Please try again"
-                };
-            } else if(userFromUsername != null)
-            {
-                if(!UtilityClasses.ValidatePassword(password, userFromUsername.PasswordHash))
+                var user = await _dbContext.Users.FirstOrDefaultAsync(x => x.Email == username) ?? await _dbContext.Users.FirstOrDefaultAsync(x => x.Username == username);
+
+                if (user is null && !UtilityClasses.ValidatePassword(password, user.PasswordHash))
                 {
                     return new UserAuthenticationresult
                     {
-                        Message = "Invalid credentials",
-                        Success = false
+                        Success = false,
+                        Message = "Invalid credentials. Please try again"
                     };
-                } else
+                }
+                else
                 {
-                    var token = _tokenManager.GenerateJWTToken(userFromUsername);
+                    var token = _tokenManager.GenerateJWTToken(user);
                     return new UserAuthenticationresult
                     {
                         Success = true,
                         Message = "Success",
-                        User = UtilityClasses.MapToUserDto(userFromUsername),
+                        User = UtilityClasses.MapToUserDto(user),
                         Token = token,
                     };
                 }
             }
-            else if(userFromEmail != null)
-            {
-                if (!UtilityClasses.ValidatePassword(password, userFromEmail.PasswordHash))
-                {
-                    return new UserAuthenticationresult
-                    {
-                        Message = "Invalid credentials",
-                        Success = false
-                    };
-                } else
-                {
-                    var token = _tokenManager.GenerateJWTToken(userFromEmail);
-                    return new UserAuthenticationresult
-                    {
-                        Success = true,
-                        Message = "Success",
-                        User = UtilityClasses.MapToUserDto(userFromEmail),
-                        Token = token,
-                    };
-                }
-            }
-            else
+            catch (Exception ex)
             {
                 return new UserAuthenticationresult
                 {
-                    Success = false,
-                    Message = "Something went wrong"
+                    Message = "Something went wrong!"
                 };
             }
-           
+
+
         }
 
         public async Task<UserAuthenticationresult> Signup(string password, string email, string username, string firstname, string lastname)
@@ -151,7 +120,7 @@ namespace bookstore_backend.Services
             try
             {
                 // Attempt token validation
-                ClaimsPrincipal claimsPrincipal =  _tokenManager.ValidateToken(token);
+                ClaimsPrincipal claimsPrincipal = _tokenManager.ValidateToken(token);
 
                 // Check if validation was successful
                 if (claimsPrincipal != null)
@@ -247,7 +216,7 @@ namespace bookstore_backend.Services
             int userId = GetAuthenticatedUserId();
             var user = await _dbContext.Users.FirstOrDefaultAsync(user => user.Id == userId);
 
-            if(user == null)
+            if (user == null)
             {
                 return new UserAuthenticationresult
                 {

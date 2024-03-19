@@ -1,16 +1,13 @@
-﻿using BCryptNet = BCrypt.Net.BCrypt;
-using bookstore_backend.Data;
-using Microsoft.AspNetCore.Identity.Data;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using bookstore_backend.Services.Interfaces;
 using bookstore_backend.models;
 using bookstore_backend.Utilities;
 using Microsoft.IdentityModel.Tokens;
+using bookstore_backend.DTOs;
 
 namespace bookstore_backend.Controllers
 {
-   
+
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -22,17 +19,11 @@ namespace bookstore_backend.Controllers
 
         [HttpPost]
         [Route("/login")]
-        public async Task<IActionResult> Login([FromBody] UtilityClasses.LoginRequest loginRequest)
+        public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
         {
-            // Manually validate the request body
-            if (string.IsNullOrEmpty(loginRequest.Email) && string.IsNullOrEmpty(loginRequest.Username))
-            {
-                ModelState.AddModelError("Email, Username", "Email or username is required.");
-            }
+            var result = await _userService.Login(loginRequest.Username, loginRequest.Password);
 
-            var result = await _userService.Login(loginRequest.Password!, loginRequest.Email, loginRequest.Username);
-
-            if(!result.Success)
+            if (!result.Success)
             {
                 return BadRequest(new { Success = result.Success, Message = result.Message });
             }
@@ -42,9 +33,9 @@ namespace bookstore_backend.Controllers
 
         [HttpPost]
         [Route("/signup")]
-        public async Task<IActionResult> SignUp([FromBody] User user )
+        public async Task<IActionResult> SignUp([FromBody] User user)
         {
-          if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 var errors = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage));
                 return BadRequest(new { Errors = errors });
@@ -52,7 +43,7 @@ namespace bookstore_backend.Controllers
 
             var result = await _userService.Signup(user.PasswordHash!, user.Email!, user.Username!, user.FirstName!, user.LastName!);
 
-            if(!result.Success)
+            if (!result.Success)
             {
                 return BadRequest(new { Success = result.Success, Message = result.Message });
             }
@@ -65,16 +56,17 @@ namespace bookstore_backend.Controllers
         [Route("/verify")]
         public async Task<ActionResult<bool>> VerifyToken([FromBody] string token)
         {
-            if(token.IsNullOrEmpty())
+            if (token.IsNullOrEmpty())
             {
                 ModelState.AddModelError("Token", "Please provide a valid token");
             }
-            var result =  await _userService.VerifyToken(token);
+            var result = await _userService.VerifyToken(token);
 
-            if(result == true)
+            if (result == true)
             {
                 return Ok(true);
-            } else
+            }
+            else
             {
                 return Ok(false);
             };
@@ -83,20 +75,20 @@ namespace bookstore_backend.Controllers
 
         [HttpPost]
         [Route("/become-author")]
-        public async Task<IActionResult> BecomeAuthor([FromBody] UtilityClasses.BecomeAuthorInfos infos )
+        public async Task<IActionResult> BecomeAuthor([FromBody] UtilityClasses.BecomeAuthorInfos infos)
         {
-            if(infos.billingAddress == null || infos.phoneNumber == null)
+            if (infos.billingAddress == null || infos.phoneNumber == null)
             {
                 return BadRequest("Please provide all the fields");
             }
             var result = await _userService.BecomeAuthor(infos.phoneNumber, infos.dateOfBirth, infos.billingAddress);
 
-            if(!result.Success)
+            if (!result.Success)
             {
                 return BadRequest(result.Message);
             }
 
-            return Ok(result);  
+            return Ok(result);
         }
     }
 }

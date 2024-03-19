@@ -13,29 +13,28 @@ namespace bookstore_backend.Services
         private readonly BookStoreDbContext _dbContext;
 
         public BookService(IUserService userService, BookStoreDbContext bookStoreDb)
-        {   
+        {
             _userService = userService;
             _dbContext = bookStoreDb;
         }
 
-        public async Task<ApiResponse<Book>> AddNewBook(CreateBookDto book)
+        public async Task<ApiResponse<CreateBookResponseDto>> AddNewBook(CreateBookDto book)
         {
             if (string.IsNullOrEmpty(book.Title) || book == null)
             {
-                return new ApiResponse<Book>(false, "Please provide all the fields");
+                return new ApiResponse<CreateBookResponseDto>(false, "Please provide all the fields");
             }
-
 
             var resultObject = await _userService.GetCurrentUser();
 
-            if(resultObject.Success == false)
+            if (resultObject.Success == false)
             {
-                return new ApiResponse<Book>(false, "User not found");
+                return new ApiResponse<CreateBookResponseDto>(false, "User not found");
             }
 
-            if(resultObject.User?.IsAuthor == false)
+            if (resultObject.User?.IsAuthor == false)
             {
-                return new ApiResponse<Book>(false, "You are not an author");
+                return new ApiResponse<CreateBookResponseDto>(false, "You are not an author");
             }
 
             var categories = await _dbContext.Categories.Where(cat => book.CategoriesId!.Contains(cat.Id)).Select(cat => cat.Name).ToListAsync();
@@ -53,7 +52,16 @@ namespace bookstore_backend.Services
             await _dbContext.Books.AddAsync(newBook);
             await _dbContext.SaveChangesAsync();
 
-            return new ApiResponse<Book>(true, "Success", newBook);
+            var result = new CreateBookResponseDto
+            {
+                Title = newBook.Title,
+                Author = newBook.Author,
+                Description = newBook.Description,
+                Categories = newBook.Categories,
+                Price = newBook.Price
+            };
+
+            return new ApiResponse<CreateBookResponseDto>(true, "Success", result);
         }
 
         public async Task<ApiResponse<bool>> DeleteBook(int id)
@@ -106,7 +114,7 @@ namespace bookstore_backend.Services
 
         public async Task<ApiResponse<IEnumerable<BookDto>>> GetBooks(int page = 1, int pageSize = 10)
         {
-            if(page <= 0 || pageSize <=0)
+            if (page <= 0 || pageSize <= 0)
             {
                 return new ApiResponse<IEnumerable<BookDto>>(false, "Page size or page number cannot be less than 1");
             }
@@ -115,7 +123,7 @@ namespace bookstore_backend.Services
 
             var totalPages = (int)Math.Ceiling((double)bookCount / pageSize);
 
-            if(page > totalPages)
+            if (page > totalPages)
             {
                 return new ApiResponse<IEnumerable<BookDto>>(false, "Page number exceeded");
             }
@@ -199,7 +207,7 @@ namespace bookstore_backend.Services
         public async Task<ApiResponse<IEnumerable<BookDto>>> GetBooksByTheSameAuthor(string authorUsername, int page = 1, int pageSize = 10)
         {
             var author = await _dbContext.Users.FirstOrDefaultAsync(user => user.Username == authorUsername);
-            
+
             if (author == null)
             {
                 return new ApiResponse<IEnumerable<BookDto>>(false, "Author not found");
@@ -207,7 +215,7 @@ namespace bookstore_backend.Services
 
             var authorBooks = await _dbContext.Books.Where(book => book.Author.ToLower() == author.Username.ToLower()).ToListAsync();
 
-            if(authorBooks.Count ==0)
+            if (authorBooks.Count == 0)
             {
                 return new ApiResponse<IEnumerable<BookDto>>(false, "Author does not have books yet");
             }
@@ -231,7 +239,7 @@ namespace bookstore_backend.Services
         {
             var book = await _dbContext.Books.FirstOrDefaultAsync(x => x.Id == bookId);
 
-            if(book == null)
+            if (book == null)
             {
                 return new ApiResponse<IEnumerable<ReviewDto>>(false, "Book not found");
             }
@@ -239,7 +247,7 @@ namespace bookstore_backend.Services
             var reviewsForBook = await _dbContext.Reviews.Include(x => x.User).Include(x => x.Book).Where(review => review.BookId == bookId).ToListAsync();
 
 
-            if(reviewsForBook.Count == 0)
+            if (reviewsForBook.Count == 0)
             {
                 return new ApiResponse<IEnumerable<ReviewDto>>(false, "This book has no reviews yet");
             }
@@ -258,7 +266,7 @@ namespace bookstore_backend.Services
         {
             var ratingReviewsForBook = await _dbContext.Reviews.Where(review => review.BookId == bookId).Select(x => x.Rating).ToListAsync();
 
-            if(ratingReviewsForBook == null)
+            if (ratingReviewsForBook == null)
             {
                 return new ApiResponse<int>(false, "Book not found");
             }
